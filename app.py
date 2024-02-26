@@ -105,8 +105,9 @@ def add_entry():
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
 
-# @app.route('/select_category', methods=['POST'])
-# def select_category():
-#     category_selected = request.form.get('category_selected', None)
-#     # Redirect to the show_entries route with the selected category as a query parameter
-#     return redirect(url_for('show_entries', category=category_selected))
+
+#@app.route('/select_category', methods=['POST'])
+#def select_category():
+     #category_selected = request.form.get('category_selected', None)
+     # Redirect to the show_entries route with the selected category as a query parameter
+        #return redirect(url_for('show_entries', category=category_selected))
