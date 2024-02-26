@@ -14,7 +14,6 @@ import os
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, g, redirect, url_for, render_template, flash
 
-
 # create our little application :)
 app = Flask(__name__)
 
@@ -80,7 +79,8 @@ def show_entries():
 
     return render_template('show_entries.html', entries=entries)
 
-@app.route('/', methods=['POST'])
+
+
 def show_entries():
     sort_selected = request.args.get('sort_selected', None)
     db = get_db()
@@ -90,25 +90,36 @@ def show_entries():
 
     if sort_selected in ALLOWED_SORT_FIELDS:
         # Safely sorting based on predefined allowed fields
-        query = f'SELECT name, email, phone_number, address FROM entries ORDER BY {sort_selected}'
+        query = f'SELECT id, name, email, phone_number, address FROM entries ORDER BY {sort_selected}'
         entries = db.execute(query).fetchall()
     else:
         # If no sort is specified or it's not allowed, show all entries without sorting
-        entries = db.execute('SELECT name, email, phone_number, address FROM entries').fetchall()
+        entries = db.execute('SELECT id, name, email, phone_number, address FROM entries').fetchall()
 
     return render_template('show_entries.html', entries=entries)
+
 
 @app.route('/add', methods=['POST'])
 def add_entry():
     db = get_db()
     db.execute('insert into entries (name, email, address, phone_number) values (?, ?, ?, ?)',
-               [request.form['name'], request.form['email'], request.form['address'],request.form['phone']])
+               [request.form['name'], request.form['email'], request.form['address'], request.form['phone']])
     db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
+
 
 @app.route('/select_category', methods=['POST'])
 def select_category():
     category_selected = request.form.get('category_selected', None)
     # Redirect to the show_entries route with the selected category as a query parameter
     return redirect(url_for('show_entries', category=category_selected))
+
+@app.route('/delete_entry', methods=['POST'])
+def delete_entry():
+    db = get_db()
+    db.execute('delete from entries where name = ?',
+               [request.form['entry_name']])
+    db.commit()
+    flash('Entry deleted')
+    return redirect(url_for('show_entries'))
