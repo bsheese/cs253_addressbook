@@ -5,4 +5,5 @@ create table entries (
   email text,
   phone_number text,
   address text
+
 );
