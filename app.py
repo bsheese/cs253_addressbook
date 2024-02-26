@@ -106,8 +106,16 @@ def add_entry():
     return redirect(url_for('show_entries'))
 
 
-#@app.route('/select_category', methods=['POST'])
-#def select_category():
-     #category_selected = request.form.get('category_selected', None)
-     # Redirect to the show_entries route with the selected category as a query parameter
-        #return redirect(url_for('show_entries', category=category_selected))
+@app.route('/delete', methods=['POST'])
+def delete():
+    db = get_db()
+    db.execute('delete from entries where id = ?', [request.form['id']])
+    db.commit()
+    flash('Entry successfully deleted')
+    return redirect(url_for('show_entries'))
+
+# @app.route('/select_category', methods=['POST'])
+# def select_category():
+#     category_selected = request.form.get('category_selected', None)
+#     # Redirect to the show_entries route with the selected category as a query parameter
+#     return redirect(url_for('show_entries', category=category_selected))
