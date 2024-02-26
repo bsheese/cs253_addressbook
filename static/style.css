@@ -1,6 +1,6 @@
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #fafaf9;
     margin: 0;
     padding: 0;
 }
@@ -61,7 +61,6 @@ h2 {
     text-align: right;
     font-size: 0.9em;
     padding: 0.5em;
-    background-color: #fafafa;
 }
 
 .flash, .error {
@@ -93,12 +92,20 @@ h2 {
 }
 
 .left-column {
-    flex: 5; /* Makes the left column take up 3/4 of the available space */
+    flex: auto; /* Makes the left column take up 3/4 of the available space */
     padding: 10px; /* Adds some spacing around the content */
 }
 
 .right-column {
-    flex: 1; /* Makes the right column take up the remaining 1/4 of the available space */
+    flex: auto; /* Makes the right column take up the remaining 1/4 of the available space */
     padding: 10px; /* Adds some spacing around the content */
+}
+
+#contacts {
+    font-size: 13px;
+}
+
+#contacts_button {
+    font-size: 11px;
 }
 
