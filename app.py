@@ -96,6 +96,7 @@ def show_entries():
 
     return render_template('show_entries.html', entries=entries)
 
+
 @app.route('/add', methods=['POST'])
 def add_entry():
     db = get_db()
@@ -110,3 +111,12 @@ def add_entry():
 #     category_selected = request.form.get('category_selected', None)
 #     # Redirect to the show_entries route with the selected category as a query parameter
 #     return redirect(url_for('show_entries', category=category_selected))
+
+
+@app.route("/delete", methods=["POST"])
+def delete_contact():
+    db = get_db()
+    db.execute('delete from entries where id = ?',
+               request.form['id'])
+    db.commit()
+    return redirect(url_for('show_entries'))
