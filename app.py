@@ -105,6 +105,15 @@ def add_entry():
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
 
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    db = get_db()
+    db.execute('delete from entries where id = ?', [request.form['id']])
+    db.commit()
+    flash('Entry successfully deleted')
+    return redirect(url_for('show_entries'))
+
 # @app.route('/select_category', methods=['POST'])
 # def select_category():
 #     category_selected = request.form.get('category_selected', None)
