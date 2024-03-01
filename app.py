@@ -65,7 +65,7 @@ def close_db(error):
         g.sqlite_db.close()
 
 
-@app.route('/')
+
 # def show_entries():
 #     sort_selected = request.args.get('sort_elected', None)
 #     db = get_db()
@@ -79,6 +79,8 @@ def close_db(error):
 #         entries = db.execute('SELECT name, email, phone_number, address FROM entries').fetchall()
 #
 #     return render_template('show_entries.html', entries=entries)
+
+@app.route('/', methods=['GET'])
 def show_entries():
     sort_selected = request.args.get('sort_selected', None)
     db = get_db()
@@ -88,11 +90,11 @@ def show_entries():
 
     if sort_selected in ALLOWED_SORT_FIELDS:
         # Safely sorting based on predefined allowed fields
-        query = f'SELECT name, email, phone_number, address FROM entries ORDER BY {sort_selected}'
+        query = f'SELECT id, name, email, phone_number, address FROM entries ORDER BY {sort_selected}'
         entries = db.execute(query).fetchall()
     else:
         # If no sort is specified or it's not allowed, show all entries without sorting
-        entries = db.execute('SELECT name, email, phone_number, address FROM entries').fetchall()
+        entries = db.execute('SELECT id, name, email, phone_number, address FROM entries').fetchall()
 
     return render_template('show_entries.html', entries=entries)
 
@@ -106,6 +108,7 @@ def add_entry():
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
 
+
 # @app.route('/select_category', methods=['POST'])
 # def select_category():
 #     category_selected = request.form.get('category_selected', None)
@@ -117,6 +120,6 @@ def add_entry():
 def delete_contact():
     db = get_db()
     db.execute('delete from entries where id = ?',
-               request.form['id'])
+               [request.form.get('del_id')])
     db.commit()
     return redirect(url_for('show_entries'))
