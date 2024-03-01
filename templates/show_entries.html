@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+
     <div class="container">
 
         <div class="left-column">
@@ -12,6 +13,7 @@
                         <th>Email</th>
                         <th>Phone Number</th>
                         <th>Address</th>
+                        <th>Delete Address</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,6 +24,12 @@
                         <td>{{ entry.email }}</td>
                         <td>{{ entry.phone_number }}</td>
                         <td>{{ entry.address }}</td>
+                        <td>
+                            <form id="box" action="/delete" method="post">
+                                <input name="del_id" type="hidden" value="{{ entry.id }}">
+                                <button id="button" name='delete'>Delete</button>
+                            </form>
+                        </td>
                         <td><button value="{{ entry.id }}" id="contacts_button">Delete</button></td>
                     </tr>
                 {% endfor %}
@@ -71,8 +79,14 @@
                     {% if request.args.get('sort_selected') == 'phone_number' %}checked{% endif %}> Phone Number
                 </label>
             </div>
+            <div class="radio-container">
+                <label>
+                    <input type="radio" name="sort_selected" value="address"
+                    {% if request.args.get('sort_selected') == 'address' %}checked{% endif %}> Address
+                </label>
+            </div>
             <button type="submit">Sort</button>
         </form>
     </div>
-    </div>
+   
 {% endblock %}
