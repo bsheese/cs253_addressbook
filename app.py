@@ -79,7 +79,8 @@ def close_db(error):
 #         entries = db.execute('SELECT name, email, phone_number, address FROM entries').fetchall()
 #
 #     return render_template('show_entries.html', entries=entries)
-
+  
+  
 @app.route('/', methods=['GET'])
 def show_entries():
     sort_selected = request.args.get('sort_selected', None)
@@ -123,3 +124,4 @@ def delete_contact():
                [request.form.get('del_id')])
     db.commit()
     return redirect(url_for('show_entries'))
+
