@@ -65,21 +65,6 @@ def close_db(error):
         g.sqlite_db.close()
 
 
-
-# def show_entries():
-#     sort_selected = request.args.get('sort_elected', None)
-#     db = get_db()
-#
-#     if sort_selected:
-#         # Filter entries by the selected categories
-#         query = f'SELECT name, email, phone_number, address FROM entries SORT BY {sort_selected}'
-#         entries = db.execute(query, category_select_list).fetchall()
-#     else:
-#         # If no category is specified, show all entries
-#         entries = db.execute('SELECT name, email, phone_number, address FROM entries').fetchall()
-#
-#     return render_template('show_entries.html', entries=entries)
-
 @app.route('/', methods=['GET'])
 def show_entries():
     sort_selected = request.args.get('sort_selected', None)
@@ -107,13 +92,6 @@ def add_entry():
     db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
-
-
-# @app.route('/select_category', methods=['POST'])
-# def select_category():
-#     category_selected = request.form.get('category_selected', None)
-#     # Redirect to the show_entries route with the selected category as a query parameter
-#     return redirect(url_for('show_entries', category=category_selected))
 
 
 @app.route("/delete", methods=["POST"])
