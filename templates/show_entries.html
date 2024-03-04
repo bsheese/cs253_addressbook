@@ -27,7 +27,7 @@
                         <td>
                             <form id="box" action="/delete" method="post">
                                 <input name="del_id" type="hidden" value="{{ entry.id }}">
-                                <button id="button" name='delete'>Delete</button>
+                                <button id="button" name='delete' style="color: #3498db">Delete</button>
                             </form>
                         </td>
                         <td><button value="{{ entry.id }}" id="contacts_button">Delete</button></td>
@@ -88,5 +88,7 @@
             <button type="submit">Sort</button>
         </form>
     </div>
-   
+    </div>
+
+
 {% endblock %}
