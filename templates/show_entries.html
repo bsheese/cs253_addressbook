@@ -21,8 +21,13 @@
                         <td>{{ entry.email }}</td>
                         <td>{{ entry.phone_number }}</td>
                         <td>{{ entry.address }}</td>
-                        <td><input type = checkbox value = delete>
-                        <input type = submit value = Delete></td>
+                       <td>
+                        <form action="/delete" method="post">
+                            <input type="submit" value="Delete">
+                            <input type="hidden" name="id" value="{{ entry.id }}">
+                        </form>
+                       </td>
+
                     </tr>
                 {% endfor %}
                 </tbody>
