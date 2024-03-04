@@ -14,9 +14,10 @@
                         <th>Phone Number</th>
                         <th>Address</th>
                         <th>Delete Address</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="contacts">
                 {% for entry in entries %}
                     <tr>
                         <td>{{ entry.name }}</td>
@@ -29,6 +30,7 @@
                                 <button id="button" name='delete' style="color: #3498db">Delete</button>
                             </form>
                         </td>
+                        <td><button value="{{ entry.id }}" id="contacts_button">Delete</button></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -87,5 +89,6 @@
         </form>
     </div>
     </div>
+
 
 {% endblock %}
